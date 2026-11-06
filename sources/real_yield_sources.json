@@ -1,1 +1,62 @@
-PLACEHOLDER_SOURCES
+[
+  {
+    "id": "aave-lending",
+    "name": "Aave Lending Spread",
+    "category": "Lending Spread",
+    "real_yield_source": "Borrower interest paid to suppliers",
+    "sustainability_score": 0.85,
+    "risk_score": 0.35,
+    "alignment_score": 0.70,
+    "typical_apy_range": [0.03, 0.08],
+    "emissions_dependent": false,
+    "notes": "Mature protocol, real revenue from utilization. Oracle and liquidation risks present."
+  },
+  {
+    "id": "hyperliquid-fees",
+    "name": "Hyperliquid Trading Fees",
+    "category": "Trading Fees",
+    "real_yield_source": "Perpetual trading fees shared with liquidity / protocol",
+    "sustainability_score": 0.90,
+    "risk_score": 0.45,
+    "alignment_score": 0.75,
+    "typical_apy_range": [0.05, 0.15],
+    "emissions_dependent": false,
+    "notes": "Strong real revenue. Newer, higher operational complexity."
+  },
+  {
+    "id": "sky-rwa",
+    "name": "Sky / Maker RWA + Stability",
+    "category": "RWA Yield",
+    "real_yield_source": "Stability fees + RWA yields on DAI/USDS",
+    "sustainability_score": 0.80,
+    "risk_score": 0.40,
+    "alignment_score": 0.65,
+    "typical_apy_range": [0.03, 0.06],
+    "emissions_dependent": false,
+    "notes": "Governance risk and RWA legal exposure. Real yield demonstrated."
+  },
+  {
+    "id": "eth-staking",
+    "name": "ETH Liquid Staking",
+    "category": "Staking",
+    "real_yield_source": "Network issuance + tips for security",
+    "sustainability_score": 0.75,
+    "risk_score": 0.30,
+    "alignment_score": 0.60,
+    "typical_apy_range": [0.02, 0.04],
+    "emissions_dependent": true,
+    "notes": "Issuance is protocol-defined. Slashing and LST discount risks."
+  },
+  {
+    "id": "emissions-farm",
+    "name": "Example Emissions Farm",
+    "category": "Trading Fees",
+    "real_yield_source": "Mostly new token emissions",
+    "sustainability_score": 0.15,
+    "risk_score": 0.70,
+    "alignment_score": 0.20,
+    "typical_apy_range": [0.20, 0.80],
+    "emissions_dependent": true,
+    "notes": "Filtered by principle. High headline APY, low sustainability."
+  }
+]

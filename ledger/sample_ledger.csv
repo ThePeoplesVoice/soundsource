@@ -1,1 +1,10 @@
-PLACEHOLDER_LEDGER
+as_of,metric,value,unit,source,locator,confidence,last_checked,notes
+2026-11-05,DeFi TVL,84.5,USD billions,DefiLlama,https://defillama.com/,high,2026-11-06,All chains
+2026-11-05,Hyperliquid 2025 protocol revenue,~305,USD millions,Spark research / DefiLlama,https://www.spark.money/research/defi-revenue-model-sustainable-tokenomics,medium,2026-11-06,H1 2026 partial
+2026-11-05,Aave 2025 protocol revenue,~140,USD millions,Spark research,https://www.spark.money/research/defi-revenue-model-sustainable-tokenomics,medium,2026-11-06,
+2026-11-05,Sky (Maker) 2025 protocol revenue,168,USD millions,Spark research,https://www.spark.money/research/defi-revenue-model-sustainable-tokenomics,medium,2026-11-06,38.6% margin claimed
+2026-11-05,Uniswap protocol revenue (post fee switch),~0.325,USD millions daily,Spark / protocol data,https://www.spark.money/research/defi-revenue-model-sustainable-tokenomics,medium,2026-11-06,After July 2026 expansion
+2026-11-05,Typical real-yield lending APY,3-7,percent,Protocol docs + DefiLlama,multiple,medium,2026-11-06,Variable by utilization
+2026-11-05,ETH staking APY (Lido-like),~2.3,percent,Lido / network,public docs,high,2026-11-06,After protocol fee
+2026-11-05,Tokenized US Treasury yield,3.5-4.5,percent,RWA platforms,issuer docs,medium,2026-11-06,Illustrative range
+2026-11-05,Emissions-driven yield (example),15-50+,percent,Various farms,protocol docs,low,2026-11-06,Usually unsustainable
