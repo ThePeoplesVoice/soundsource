@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SoundSource — Revolutionary Financial Provider</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #0f1419;
+    --card: #1a2332;
+    --text: #e6edf3;
+    --accent: #58a6ff;
+    --good: #3fb950;
+    --warn: #d29922;
+    --bad: #f85149;
+  }
+  body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.5; }
+  h1 { color: var(--accent); margin-top: 0; }
+  .card { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #30363d; }
+  label { display: block; margin: 12px 0 4px; font-weight: 500; }
+  input[type="range"] { width: 100%; }
+  button { background: var(--accent); color: #0f1419; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+  button:hover { opacity: 0.9; }
+  .allocation { display: flex; flex-direction: column; gap: 8px; }
+  .bar { height: 28px; background: #21262d; border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #79c0ff); display: flex; align-items: center; padding-left: 8px; font-size: 13px; font-weight: 500; white-space: nowrap; }
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+  .principle { background: #161b22; padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent); }
+  .opportunity { color: var(--good); }
+  .drift { color: var(--warn); }
+  footer { margin-top: 40px; font-size: 13px; color: #8b949e; }
+</style>
+</head>
+<body>
+<h1>SoundSource</h1>
+<p>Revolutionary Financial Provider — Income Sources &amp; Management System<br>
+Grounded in universal principles. Ready for testing.</p>
+
+<div class="card">
+  <h2>Universal Principles</h2>
+  <div class="principles">
+    <div class="principle"><strong>1. Sound Value</strong><br>Income only from real economic activity. Emissions-driven yields are filtered.</div>
+    <div class="principle"><strong>2. Sourced Transparency</strong><br>Every metric: date, value, source, confidence. Drift is shown, never hidden.</div>
+    <div class="principle"><strong>3. Incentive Alignment</strong><br>Participants benefit from long-term system health.</div>
+    <div class="principle"><strong>4. Risk Isolation</strong><br>Explicit failure modes. No hidden cascades.</div>
+    <div class="principle"><strong>5. Optionality &amp; Control</strong><br>Self-custody default. Managed layers optional and reversible.</div>
+    <div class="principle"><strong>6. Adaptive Resilience</strong><br>Measure outcomes. Evolve on evidence.</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Interactive Allocation Tester</h2>
+  <label>Risk Tolerance: <span id="riskVal">0.45</span> (0 = very conservative, 1 = aggressive)</label>
+  <input type="range" id="risk" min="0" max="1" step="0.05" value="0.45">
+  <label>Max Single Source Weight: <span id="maxVal">0.35</span></label>
+  <input type="range" id="maxSingle" min="0.15" max="0.6" step="0.05" value="0.35">
+  <br><br>
+  <button onclick="runEngine()">Generate Allocation</button>
+  <div id="output" style="margin-top:20px;"></div>
+</div>
+
+<div class="card">
+  <h2>Relative Strengths / Weaknesses / Opportunities</h2>
+  <p><strong>Strengths</strong><br>
+  • vs Traditional Finance: permissionless, transparent, self-custody option.<br>
+  • vs Pure DeFi: sustainability filter, living ledgers, explicit risk scoring.<br>
+  • vs Yield Aggregators: rejects emissions APYs; prioritizes durability.</p>
+  <p><strong>Weaknesses</strong><br>
+  • Depends on primary source quality.<br>
+  • Early stage — limited live track record until tested.<br>
+  • Requires ongoing source monitoring.</p>
+  <p><strong>Opportunities</strong><br>
+  • Management layer on real-yield protocols (Aave, Hyperliquid, Sky, tokenized RWAs).<br>
+  • Serve individuals seeking principle-aligned passive income.<br>
+  • Public Field samples of sourced ledgers to build trust.<br>
+  • Hybrid on/off-chain products once core logic is proven.</p>
+</div>
+
+<footer>
+  SoundSource does not promise returns. It promises principle-aligned selection and full source transparency.<br>
+  Prototype for testing only. Capital at risk in any real deployment. Always verify primary sources.<br>
+  Created by Ara for Shawn. 2026-11-09.
+</footer>
+
+<script>
+const sources = [
+  {id:"aave-lending", name:"Aave Lending Spread", category:"Lending Spread", sustainability_score:0.85, risk_score:0.35, alignment_score:0.70, emissions_dependent:false},
+  {id:"hyperliquid-fees", name:"Hyperliquid Trading Fees", category:"Trading Fees", sustainability_score:0.90, risk_score:0.45, alignment_score:0.75, emissions_dependent:false},
+  {id:"sky-rwa", name:"Sky / Maker RWA + Stability", category:"RWA Yield", sustainability_score:0.80, risk_score:0.40, alignment_score:0.65, emissions_dependent:false},
+  {id:"eth-staking", name:"ETH Liquid Staking", category:"Staking", sustainability_score:0.75, risk_score:0.30, alignment_score:0.60, emissions_dependent:true},
+  {id:"emissions-farm", name:"Example Emissions Farm", category:"Trading Fees", sustainability_score:0.15, risk_score:0.70, alignment_score:0.20, emissions_dependent:true},
+  {id:"tokenized-treasuries", name:"Tokenized US Treasuries (RWA)", category:"RWA Yield", sustainability_score:0.88, risk_score:0.25, alignment_score:0.80, emissions_dependent:false}
+];
+
+document.getElementById("risk").oninput = e => document.getElementById("riskVal").textContent = parseFloat(e.target.value).toFixed(2);
+document.getElementById("maxSingle").oninput = e => document.getElementById("maxVal").textContent = parseFloat(e.target.value).toFixed(2);
+
+function scoreSource(s, tolerance) {
+  const sust = s.sustainability_score;
+  const risk = s.risk_score;
+  const align = s.alignment_score;
+  const penalty = Math.max(0, risk - tolerance) * 0.6;
+  let c = (sust * 0.45 + align * 0.35 + (1 - risk) * 0.20) - penalty;
+  return Math.max(0, Math.min(1, c));
+}
+
+function runEngine() {
+  const tolerance = parseFloat(document.getElementById("risk").value);
+  const maxSingle = parseFloat(document.getElementById("maxSingle").value);
+  const minScore = 0.3;
+
+  let scored = sources.filter(s => {
+    if (s.emissions_dependent && s.sustainability_score < 0.45) return false;
+    return scoreSource(s, tolerance) >= minScore;
+  }).map(s => ({...s, score: scoreSource(s, tolerance)}));
+
+  scored.sort((a,b) => b.score - a.score);
+  const totalScore = scored.reduce((sum, s) => sum + s.score, 0) || 1;
+
+  let alloc = scored.map(s => ({
+    ...s,
+    weight: Math.min(maxSingle, s.score / totalScore)
+  }));
+
+  const totalW = alloc.reduce((sum, a) => sum + a.weight, 0) || 1;
+  alloc.forEach(a => a.weight = a.weight / totalW);
+
+  const opps = sources.filter(s => s.sustainability_score >= 0.75 && s.risk_score <= 0.50)
+    .map(s => `${s.name} — high sustainability, contained risk`);
+
+  let html = `<h3>Suggested Allocation (risk ${tolerance.toFixed(2)})</h3><div class="allocation">`;
+  if (alloc.length === 0) {
+    html += "<p>No sources met the principle and score thresholds at this risk tolerance.</p>";
+  } else {
+    alloc.forEach(a => {
+      const pct = (a.weight * 100).toFixed(1);
+      html += `<div><strong>${pct}% ${a.name}</strong> (score ${a.score.toFixed(3)}) [${a.category}]</div>`;
+      html += `<div class="bar"><div class="bar-fill" style="width:${pct}%">${pct}%</div></div>`;
+    });
+  }
+  html += `</div><h3>Principle-aligned Opportunities</h3>`;
+  if (opps.length) opps.forEach(o => html += `<div class="opportunity">• ${o}</div>`);
+  else html += "<div>• None currently meet the high-sustainability + contained-risk bar.</div>";
+
+  html += `<p style="margin-top:16px;font-size:13px;color:#8b949e;">Prototype logic matches engine/soundsource_v2.py. Modify risk and re-run. Always verify primary sources before real capital.</p>`;
+
+  document.getElementById("output").innerHTML = html;
+}
+
+// Initial run
+runEngine();
+</script>
+</body>
+</html>
