@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SoundSource — Revolutionary Financial Provider Tester</title>
+<style>
+body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+h1 { color: #1a365d; }
+.principles { background: #f7fafc; padding: 1rem; border-left: 4px solid #2b6cb0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+th, td { border: 1px solid #e2e8f0; padding: 0.5rem; text-align: left; }
+.controls { background: #edf2f7; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+button { background: #2b6cb0; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 4px; cursor: pointer; }
+pre { background: #1a202c; color: #e2e8f0; padding: 1rem; overflow-x: auto; }
+.note { font-size: 0.9rem; color: #4a5568; }
+</style>
+</head>
+<body>
+<h1>SoundSource</h1>
+<p><strong>Revolutionary Financial Provider — Income Sources &amp; Management System</strong></p>
+<p>Grounded in universal principles of sound value, sourced transparency, incentive alignment, and adaptive resilience. Prototype ready for local testing. No capital at risk.</p>
+
+<div class="principles">
+<h2>Universal Principles (Fundamental)</h2>
+<ol>
+<li><strong>Sound Value</strong> — Sustainable income from real economic activity only. Emissions-driven yields are filtered.</li>
+<li><strong>Sourced Transparency</strong> — Every metric: as_of | value | unit | source | locator | confidence | last_checked. Drift reported.</li>
+<li><strong>Incentive Alignment</strong> — Long-term health shared. Short-term extraction penalized.</li>
+<li><strong>Risk Isolation</strong> — Modular, explicit failure modes, opt-in risk.</li>
+<li><strong>Optionality &amp; Control</strong> — Self-custody default. Managed layers optional and reversible.</li>
+<li><strong>Adaptive Resilience</strong> — Measure, detect drift, evolve on evidence.</li>
+</ol>
+</div>
+
+<h2>Relative Strengths / Weaknesses / Opportunities</h2>
+<ul>
+<li><strong>Strengths</strong>: Principle filter rejects unsustainable yields; living sourced ledgers; transparent scoring; self-custody aligned; global access without gatekeeping.</li>
+<li><strong>Weaknesses</strong>: Dependent on primary source quality; early-stage track record; active monitoring required; regulatory ambiguity (shared with DeFi).</li>
+<li><strong>Opportunities</strong>: Management overlay on real-yield protocols (Aave, Hyperliquid, Sky, RWAs); public Field samples; hybrid products after validation; participation-weighted governance.</li>
+</ul>
+
+<div class="controls">
+<label>Risk tolerance (0 = very conservative, 1 = aggressive): <input type="range" id="risk" min="0" max="1" step="0.05" value="0.45"></label>
+<span id="riskVal">0.45</span><br><br>
+<button onclick="runEngine()">Run Management Engine</button>
+</div>
+
+<h2>Sample Ledger Snapshot (as of 2026-11-12)</h2>
+<p class="note">Illustrative dated rows. Replace with live primary sources for real use. Drift is a feature.</p>
+<div id="ledger"></div>
+
+<h2>Output</h2>
+<pre id="output">Click "Run Management Engine" to generate allocation and opportunity report.</pre>
+
+<script>
+const sources = [
+  {id: "aave-lending", name: "Aave Lending Spread", category: "Lending Spread", sustainability_score: 0.85, risk_score: 0.35, alignment_score: 0.70, emissions_dependent: false, typical_apy_range: [0.03, 0.08]},
+  {id: "hyperliquid-fees", name: "Hyperliquid Trading Fees", category: "Trading Fees", sustainability_score: 0.90, risk_score: 0.45, alignment_score: 0.75, emissions_dependent: false, typical_apy_range: [0.05, 0.15]},
+  {id: "sky-rwa", name: "Sky / Maker RWA + Stability", category: "RWA Yield", sustainability_score: 0.80, risk_score: 0.40, alignment_score: 0.65, emissions_dependent: false, typical_apy_range: [0.03, 0.06]},
+  {id: "eth-staking", name: "ETH Liquid Staking", category: "Staking", sustainability_score: 0.75, risk_score: 0.30, alignment_score: 0.60, emissions_dependent: true, typical_apy_range: [0.02, 0.04]},
+  {id: "emissions-farm", name: "Example Emissions Farm", category: "Emissions", sustainability_score: 0.15, risk_score: 0.70, alignment_score: 0.20, emissions_dependent: true, typical_apy_range: [0.20, 0.80]}
+];
+
+const ledger = [
+  {as_of: "2026-11-12", metric: "Hyperliquid 24h revenue", value: "~2.53", unit: "USD millions", source: "DefiLlama", confidence: "high"},
+  {as_of: "2026-11-12", metric: "Aave protocol revenue (30d sample)", value: "~4.26", unit: "USD millions (Ethereum focus)", source: "DefiLlama", confidence: "medium"},
+  {as_of: "2026-11-05", metric: "Typical real-yield lending APY", value: "3-7", unit: "percent", source: "Protocol docs + DefiLlama", confidence: "medium"},
+  {as_of: "2026-11-05", metric: "ETH staking APY (Lido-like)", value: "~2.3", unit: "percent", source: "Lido / network", confidence: "high"},
+  {as_of: "2026-11-05", metric: "Emissions-driven yield (example)", value: "15-50+", unit: "percent", source: "Various farms", confidence: "low"}
+];
+
+document.getElementById("risk").oninput = e => document.getElementById("riskVal").textContent = e.target.value;
+
+function renderLedger() {
+  let html = "<table><tr><th>as_of</th><th>metric</th><th>value</th><th>confidence</th></tr>";
+  ledger.forEach(r => html += `<tr><td>${r.as_of}</td><td>${r.metric}</td><td>${r.value} ${r.unit}</td><td>${r.confidence}</td></tr>`);
+  html += "</table>";
+  document.getElementById("ledger").innerHTML = html;
+}
+renderLedger();
+
+function scoreSource(s, tol) {
+  const sust = s.sustainability_score, risk = s.risk_score, align = s.alignment_score;
+  const penalty = Math.max(0, risk - tol) * 0.5;
+  let composite = (sust * 0.45 + align * 0.35 + (1 - risk) * 0.20) - penalty;
+  return Math.max(0, Math.min(1, composite));
+}
+
+function runEngine() {
+  const tol = parseFloat(document.getElementById("risk").value);
+  let scored = sources.filter(s => !(s.emissions_dependent && s.sustainability_score < 0.4))
+    .map(s => ({...s, score: scoreSource(s, tol)}))
+    .sort((a,b) => b.score - a.score);
+  const total = scored.reduce((sum, s) => sum + s.score, 0) || 1;
+  let alloc = scored.map(s => ({
+    name: s.name,
+    weight: Math.min(0.35, s.score / total),
+    score: s.score.toFixed(3),
+    category: s.category
+  }));
+  const tw = alloc.reduce((sum, a) => sum + a.weight, 0) || 1;
+  alloc.forEach(a => a.weight = (a.weight / tw).toFixed(3));
+
+  let out = `SoundSource Management Report\nGenerated: ${new Date().toISOString().slice(0,10)}\nRisk tolerance: ${tol}\nPrinciples: Sound Value | Sourced Transparency | Alignment\n\n`;
+  out += "Suggested Allocation:\n";
+  alloc.forEach(a => out += `  ${(a.weight*100).toFixed(1)}%  ${a.name}  (score ${a.score})\n`);
+  out += "\nPrinciple-aligned Opportunities:\n";
+  sources.filter(s => s.sustainability_score >= 0.75 && s.risk_score <= 0.5)
+    .forEach(s => out += `  • ${s.name} — high sustainability, contained risk\n`);
+  out += "\nLedger notes (medium/low confidence require primary verification):\n";
+  ledger.filter(r => r.confidence !== "high").forEach(r => out += `  • ${r.metric}: ${r.confidence}\n`);
+  out += "\nTest complete. No capital at risk. Feed real sourced metrics to refine.";
+  document.getElementById("output").textContent = out;
+}
+</script>
+</body>
+</html>
